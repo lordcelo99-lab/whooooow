@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Happy Birthday! 🎉</title>
+  <meta name="description" content="Sebuah hadiah ulang tahun digital.">
+  <meta name="theme-color" content="#fff0f5">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎂%3C/text%3E%3C/svg%3E">
+
+  <!-- Font: Caprasimo (judul), Nunito (teks), Caveat (tulisan tangan) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Caveat:wght@500..700&family=Nunito:wght@400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/effects.css">
+  <link rel="stylesheet" href="css/music.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+<main>
+
+  <!-- ==================================================================
+       1. HOME
+       ================================================================== -->
+  <header class="hero" id="home">
+    <div class="hero__deco" aria-hidden="true">
+      <i class="deco deco--star" style="--x:6%;  --y:14%; --s:26px; --c:var(--lemon)"></i>
+      <i class="deco deco--ring" style="--x:44%; --y:9%;  --s:18px; --c:var(--berry)"></i>
+      <i class="deco deco--dot"  style="--x:92%; --y:46%; --s:14px; --c:var(--mint)"></i>
+      <i class="deco deco--bar"  style="--x:4%;  --y:62%; --s:44px; --c:var(--lilac); --r:-28deg"></i>
+      <i class="deco deco--star" style="--x:46%; --y:84%; --s:20px; --c:var(--berry)"></i>
+      <i class="deco deco--dot"  style="--x:70%; --y:8%;  --s:12px; --c:var(--lemon)"></i>
+    </div>
+
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 class="hero__title">
+          <span class="hero__line">
+            <span class="w" style="--i:0">Happy</span>
+            <span class="w" style="--i:1">Birthday!&nbsp;🎉</span>
+          </span>
+          <span class="hero__name w" style="--i:2" data-bind="name">NAMA</span>
+        </h1>
+        <p class="hero__sub w" style="--i:3">Today is your special day ✨</p>
+        <div class="hero__cta w" style="--i:4">
+          <button class="btn btn--primary" id="celebrateBtn" type="button">
+            <span class="btn__label">Celebrate 🎉</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero__photo">
+        <div class="photo-frame" id="photoFrame">
+          <img id="heroPhoto" src="assets/profile.jpg" alt="Foto ulang tahun" width="800" height="1000" fetchpriority="high">
+          <div class="photo-frame__fallback" aria-hidden="true">
+            <span>🎂</span>
+            <p>Taruh fotomu di<br><code>assets/profile.jpg</code></p>
+          </div>
+        </div>
+
+        <div class="badge-spin" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <defs><path id="badgeCircle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+            <text><textPath href="#badgeCircle" textLength="268" lengthAdjust="spacing">MAKE A WISH • BLOW THE CANDLES • </textPath></text>
+          </svg>
+          <span class="badge-spin__icon">🎂</span>
+        </div>
+
+        <span class="sticker sticker--1" style="--d:0s; --depth:14" aria-hidden="true">🎈</span>
+        <span class="sticker sticker--2" style="--d:-1.6s; --depth:20" aria-hidden="true">⭐</span>
+        <span class="sticker sticker--3" style="--d:-3s; --depth:10" aria-hidden="true">💖</span>
+      </div>
+    </div>
+
+    <a class="scroll-hint" href="#birthday" aria-label="Scroll ke countdown">
+      <span>scroll</span><span class="scroll-hint__arrow" aria-hidden="true">↓</span>
+    </a>
+  </header>
+
+  <!-- ==================================================================
+       2. BIRTHDAY COUNTDOWN
+       ================================================================== -->
+  <section class="section has-scallop section--countdown" id="birthday" aria-labelledby="countdownTitle">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title" id="countdownTitle">Birthday Countdown</h2>
+        <p class="countdown__caption" id="countdownCaption"></p>
+      </div>
+
+      <div class="countdown" id="countdown" role="timer" aria-label="Countdown menuju ulang tahun">
+        <div class="time-card pop" style="--c:var(--pink); --tilt:-2deg; --delay:0s">
+          <span class="time-card__num" data-unit="days">00</span>
+          <span class="time-card__label">Days</span>
+        </div>
+        <div class="time-card pop" style="--c:var(--mint); --tilt:1.5deg; --delay:.08s">
+          <span class="time-card__num" data-unit="hours">00</span>
+          <span class="time-card__label">Hours</span>
+        </div>
+        <div class="time-card pop" style="--c:var(--lilac); --tilt:-1deg; --delay:.16s">
+          <span class="time-card__num" data-unit="minutes">00</span>
+          <span class="time-card__label">Minutes</span>
+        </div>
+        <div class="time-card time-card--seconds pop" style="--tilt:2deg; --delay:.24s">
+          <span class="time-card__num" data-unit="seconds">00</span>
+          <span class="time-card__label">Seconds</span>
+        </div>
+      </div>
+
+      <div class="countdown-done" id="countdownDone" hidden>
+        <p class="countdown-done__title">🎉 HAPPY BIRTHDAY! 🎉</p>
+        <button class="btn btn--lemon" id="confettiAgain" type="button">
+          <span class="btn__label">More confetti 🎊</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       3. BIRTHDAY CHART
+       ================================================================== -->
+  <section class="section has-scallop section--chart" id="chart" aria-labelledby="chartTitle">
+    <div class="container">
+      <div class="section-head section-head--left">
+        <h2 class="section-title" id="chartTitle">Birthday Chart</h2>
+      </div>
+
+      <div class="chart-grid">
+        <article class="info-card info-card--bday pop" style="--delay:0s">
+          <span class="info-card__icon" aria-hidden="true">🎂</span>
+          <div class="info-card__body">
+            <h3 class="info-card__label">Birthday</h3>
+            <p class="info-card__value" data-field="birthDate">DD Month YYYY</p>
+          </div>
+        </article>
+
+        <article class="info-card info-card--age pop" id="ageCard" style="--delay:.08s">
+          <span class="info-card__icon" aria-hidden="true">🎓</span>
+          <div class="info-card__body">
+            <h3 class="info-card__label">Age</h3>
+            <p class="info-card__value">
+              <span class="age-num" data-field="age">0</span>
+              <span class="age-unit">years old</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="info-card info-card--zodiac pop" style="--delay:.14s">
+          <span class="info-card__icon" aria-hidden="true" data-field="zodiacIcon">♈</span>
+          <div class="info-card__body">
+            <h3 class="info-card__label">Zodiac</h3>
+            <p class="info-card__value" data-field="zodiac">Aries</p>
+          </div>
+        </article>
+
+        <article class="info-card info-card--born pop" style="--delay:.2s">
+          <span class="info-card__icon" aria-hidden="true">📅</span>
+          <div class="info-card__body">
+            <h3 class="info-card__label">Born On</h3>
+            <p class="info-card__value" data-field="bornOn">Monday</p>
+          </div>
+        </article>
+
+        <article class="info-card info-card--mood pop" style="--delay:.26s">
+          <span class="info-card__icon" aria-hidden="true">✨</span>
+          <div class="info-card__body">
+            <h3 class="info-card__label">Birthday Mood</h3>
+            <p class="info-card__value" data-field="mood">Today is your day!</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       4. BIRTHDAY MESSAGE
+       ================================================================== -->
+  <section class="section has-scallop section--message" id="message" aria-labelledby="messageTitle">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title" id="messageTitle">To Someone Special 💌</h2>
+      </div>
+
+      <article class="letter" id="letter" title="Klik untuk melewati animasi mengetik">
+        <p class="letter__greeting">Dear <span data-bind="name">NAMA</span>,</p>
+
+        <p class="sr-only" id="letterFull"></p>
+        <div class="letter__text" aria-hidden="true">
+          <span class="letter__ghost" id="letterGhost"></span>
+          <span class="letter__typed"><span class="letter__typed-text"></span><span class="caret"></span></span>
+        </div>
+
+        <p class="letter__sign" id="letterSign"></p>
+      </article>
+
+      <div class="gift-area">
+        <div class="gift" id="gift" aria-hidden="true">
+          <div class="gift__glow"></div>
+          <div class="gift__box">
+            <div class="gift__body"></div>
+            <div class="gift__lid">
+              <span class="gift__bow"><i class="gift__knot"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn--primary" id="giftBtn" type="button" aria-expanded="false" aria-controls="secret">
+          <span class="btn__label">Open Your Gift 🎁</span>
+        </button>
+
+        <div class="secret" id="secret" aria-live="polite">
+          <div class="secret__inner">
+            <div class="secret__card">
+              <h3 class="secret__title" id="secretTitle"></h3>
+              <p class="secret__text" id="secretText"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       5. PHOTO GALLERY
+       ================================================================== -->
+  <section class="section has-scallop section--gallery" id="memories" aria-labelledby="galleryTitle">
+    <div class="container gallery" id="gallery">
+      <div class="section-head">
+        <h2 class="section-title" id="galleryTitle">📸 Our Memories</h2>
+        <p class="section-lead">Tambahkan foto favoritmu. Bisa banyak sekaligus, atau seret dan lepas ke sini.</p>
+      </div>
+
+      <div class="gallery-toolbar">
+        <button class="btn btn--primary" id="addPhotosBtn" type="button">
+          <span class="btn__label">Add Photos 📷</span>
+        </button>
+        <input type="file" id="photoInput" accept="image/*" multiple hidden>
+        <p class="gallery-count" id="galleryCount" hidden></p>
+      </div>
+
+      <button class="gallery-empty" id="galleryEmpty" type="button">
+        <span class="gallery-empty__icon" aria-hidden="true">🖼️</span>
+        <span class="gallery-empty__title">Belum ada foto</span>
+        <span class="gallery-empty__hint">Pilih foto atau seret ke sini untuk mulai mengisi kenangan</span>
+      </button>
+
+      <div class="gallery-grid" id="galleryGrid" hidden></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer has-scallop">
+  <div class="container">
+    <p class="footer__hand">Made with 💛 for <span data-bind="name">NAMA</span></p>
+    <a class="footer__top" href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<!-- Lightbox foto -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lightbox__close" type="button" aria-label="Close">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo">‹</button>
+  <figure class="lightbox__stage">
+    <img id="lightboxImg" alt="">
+    <figcaption id="lightboxCaption"></figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">›</button>
+  <p class="lightbox__count" id="lightboxCount"></p>
+</div>
+
+<!-- Pemutar musik mengambang 🎵 (otomatis tersembunyi bila playlist di config.js kosong) -->
+<div class="music-player" id="musicPlayer">
+  <audio id="musicAudio" preload="metadata"></audio>
+
+  <div class="music-panel" id="musicPanel">
+    <div class="music-panel__now">
+      <span class="music-disc" id="musicDisc" aria-hidden="true">
+        <span class="music-disc__hole"></span>
+      </span>
+      <span class="music-panel__meta">
+        <span class="music-panel__title" id="musicTitle">Judul Lagu</span>
+        <span class="music-panel__artist" id="musicArtist">Nama Artis</span>
+      </span>
+      <button class="music-list-btn" id="musicListToggle" type="button" aria-expanded="false" aria-label="Buka daftar lagu">☰</button>
+    </div>
+
+    <div class="music-progress">
+      <span class="music-time" id="musicCurrent">0:00</span>
+      <input class="music-range" id="musicSeek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Posisi lagu">
+      <span class="music-time" id="musicDuration">0:00</span>
+    </div>
+
+    <div class="music-controls">
+      <button class="music-ctrl" id="musicPrev" type="button" aria-label="Previous">⏮</button>
+      <button class="music-play" id="musicPlay" type="button" aria-label="Play">
+        <svg class="music-play__icon--play" viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M7 5v14l12-7z"/></svg>
+        <svg class="music-play__icon--pause" viewBox="0 0 24 24" width="22" height="22" hidden><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <button class="music-ctrl" id="musicNext" type="button" aria-label="Next">⏭</button>
+
+      <span class="music-volume">
+        <button class="music-mute" id="musicMute" type="button" aria-label="Mute">🔊</button>
+        <input class="music-range music-range--volume" id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.6" aria-label="Volume">
+      </span>
+    </div>
+
+    <div class="music-list" id="musicList" role="listbox" aria-label="Daftar lagu"></div>
+  </div>
+
+  <button class="music-toggle" id="musicToggle" type="button" aria-expanded="false" aria-label="Buka pemutar musik">
+    <span class="music-toggle__disc" aria-hidden="true">🎵</span>
+  </button>
+</div>
+
+<!-- Urutan script penting: config → utils → effects → modul lain → main -->
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/birthday-chart.js"></script>
+<script src="js/message.js"></script>
+<script src="js/gift.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/music.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
