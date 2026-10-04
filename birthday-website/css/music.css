@@ -1,0 +1,326 @@
+/* ==========================================================================
+   music.css — pemutar musik mengambang (floating widget)
+   Struktur: tombol bulat (.music-toggle) + panel (.music-panel) yang
+   muncul di atasnya saat diperluas. Warna & bentuk mengikuti token di base.css.
+   ========================================================================== */
+
+.music-player {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom) + 18px);
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: var(--font-body);
+}
+
+/* ---------- Tombol bulat (collapsed) ---------- */
+.music-toggle {
+  position: relative;
+  width: 60px; height: 60px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: var(--berry);
+  border: var(--line);
+  border-radius: 50%;
+  box-shadow: var(--pop);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-out);
+}
+.music-toggle:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 0 var(--choco); }
+.music-toggle:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--choco); }
+
+.music-toggle__disc {
+  font-size: 1.5rem;
+  line-height: 1;
+  animation: spin 3.5s linear infinite;
+  animation-play-state: paused;
+}
+.music-player.is-playing .music-toggle__disc { animation-play-state: running; }
+
+/* cincin berdenyut saat musik main */
+.music-toggle::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--berry);
+  border-radius: 50%;
+  opacity: 0;
+  scale: 0.85;
+}
+.music-player.is-playing .music-toggle::after {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+/* ---------- Panel (expanded) ---------- */
+.music-panel {
+  width: min(84vw, 300px);
+  padding: 18px 18px 8px;
+  background: var(--paper);
+  border: var(--line);
+  border-radius: 24px;
+  box-shadow: var(--pop);
+  transform-origin: bottom right;
+  opacity: 0;
+  scale: 0.85;
+  translate: 0 12px;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s var(--ease-out), scale 0.32s var(--ease-spring), translate 0.32s var(--ease-spring);
+}
+.music-player.is-expanded .music-panel {
+  opacity: 1;
+  scale: 1;
+  translate: 0 0;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.music-panel__now {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Piringan hitam kecil */
+.music-disc {
+  flex: none;
+  position: relative;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, var(--choco) 0 1.5px, transparent 1.5px 4px),
+    radial-gradient(circle at 50% 50%, var(--berry) 0 28%, var(--choco) 29% 100%);
+  animation: spin 3.5s linear infinite;
+  animation-play-state: paused;
+}
+.music-player.is-playing .music-disc { animation-play-state: running; }
+.music-disc__hole {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 8px; height: 8px;
+  translate: -50% -50%;
+  background: var(--paper);
+  border-radius: 50%;
+}
+
+.music-panel__meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.music-panel__title {
+  font-weight: 800;
+  font-size: 0.98rem;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.music-panel__artist {
+  font-size: 0.82rem;
+  color: var(--choco-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-list-btn {
+  flex: none;
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  padding: 0;
+  font-size: 1rem;
+  background: var(--lilac-soft);
+  border: 2px solid var(--choco);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.25s var(--ease-spring);
+}
+.music-list-btn:hover { background: var(--lilac); }
+.music-panel.is-list-open .music-list-btn { transform: rotate(90deg); background: var(--lilac); }
+
+/* ---------- Progress ---------- */
+.music-progress {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.music-time { font-size: 0.72rem; font-weight: 700; color: var(--choco-soft); min-width: 2.6em; text-align: center; }
+
+.music-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--lilac-soft);
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+}
+.music-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--berry);
+  border: 2px solid var(--choco);
+  cursor: pointer;
+  margin-top: -0.5px;
+}
+.music-range::-moz-range-thumb {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--berry);
+  border: 2px solid var(--choco);
+  cursor: pointer;
+}
+.music-range::-webkit-slider-runnable-track,
+.music-range::-moz-range-track { height: 6px; border-radius: 99px; }
+
+/* ---------- Controls ---------- */
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.music-ctrl {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  padding: 0;
+  font-size: 1rem;
+  background: var(--paper);
+  border: 2px solid var(--choco);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-spring), background 0.2s ease;
+}
+.music-ctrl:hover { background: var(--lemon-soft); transform: scale(1.08); }
+
+.music-play {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  padding: 0;
+  color: #fff;
+  background: var(--berry);
+  border: var(--line);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 var(--choco);
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s var(--ease-out);
+}
+.music-play:hover { transform: scale(1.08); }
+.music-play:active { transform: scale(0.96); box-shadow: 1px 1px 0 var(--choco); }
+.music-play svg { display: block; }
+
+.music-volume {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 4px;
+}
+.music-mute {
+  padding: 0;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.music-range--volume { width: 64px; }
+
+/* ---------- Daftar lagu ---------- */
+.music-list {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--ease-out);
+}
+.music-panel.is-list-open .music-list { grid-template-rows: 1fr; }
+.music-list > * { min-height: 0; }
+
+.music-list {
+  overflow: hidden;
+}
+.music-list::before {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-bottom: 6px;
+  background: repeating-linear-gradient(90deg, var(--choco) 0 6px, transparent 6px 12px);
+  opacity: 0.25;
+}
+.music-panel:not(.is-list-open) .music-list::before { display: none; }
+
+.music-list__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 6px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.music-list__item:hover { background: var(--lemon-soft); }
+.music-list__item[aria-current="true"] { background: var(--pink-soft); }
+
+.music-list__num {
+  flex: none;
+  width: 22px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--choco-soft);
+}
+.music-list__item[aria-current="true"] .music-list__num::before { content: "▶ "; }
+
+.music-list__meta { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
+.music-list__title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.music-list__artist {
+  font-size: 0.74rem;
+  color: var(--choco-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes pulse-ring {
+  0%   { opacity: 0.55; scale: 0.85; }
+  70%  { opacity: 0; scale: 1.25; }
+  100% { opacity: 0; scale: 1.25; }
+}
+
+@media (max-width: 480px) {
+  .music-player { right: 14px; bottom: max(14px, env(safe-area-inset-bottom) + 14px); }
+  .music-toggle { width: 54px; height: 54px; }
+  .music-panel { width: min(88vw, 280px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle__disc,
+  .music-disc { animation: none !important; }
+  .music-toggle::after { animation: none !important; }
+}
